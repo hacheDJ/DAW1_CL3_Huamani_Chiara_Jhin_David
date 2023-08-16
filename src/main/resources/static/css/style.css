@@ -1,0 +1,14 @@
+
+
+nav ul{
+    list-style-type: none; 
+    padding: 0px;
+}
+
+nav ul li{
+    display: inline;
+}
+
+body{
+    background-color: antiquewhite;
+}

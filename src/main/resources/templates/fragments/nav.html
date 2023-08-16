@@ -1,0 +1,17 @@
+
+<nav th:fragment="nav">
+    <ul>
+        <li><a th:href="@{/}">Inicio</a></li>
+        <li><a th:href="@{/about}">Nosotros</a></li>
+        <div sec:authorize="!isAuthenticated()">
+            <li><a th:href="@{/user/login}">Iniciar sesión</a></li>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            <li>
+                <form th:action="@{/logout}" method="POST">
+                    <button>Cerrar sesión</button>
+                </form>
+            </li>
+        </div>
+    </ul>
+</nav>

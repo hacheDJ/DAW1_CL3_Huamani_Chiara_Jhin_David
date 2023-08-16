@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/head" :: head></div>
+<body>
+    <div th:replace="fragments/header" :: header></div>
+    <div th:replace="fragments/nav" :: nav></div>
+    
+    <main>
+        <h3 th:text="${subTitle}"></h3>
+        <form th:action="@{/user/login}" method="POST">
+            <div>
+                <input type="text" placeholder="Usuario" name="username">
+            </div>
+            <div>
+                <input type="password" placeholder="Contraseña" name="password">
+            </div>
+            <div>   
+                <input type="submit" value="Ingresar">
+            </div>    
+        </form>
+
+    </main>
+</body>
+</html>
