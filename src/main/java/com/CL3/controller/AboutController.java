@@ -3,10 +3,14 @@ package com.CL3.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import javax.sql.DataSource;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
@@ -34,9 +38,11 @@ import net.sf.jasperreports.engine.util.JRLoader;
 public class AboutController {
 	
 	public EmployeeRepository er;
+	public DataSource dataSource;
 	
-	public AboutController(EmployeeRepository er) {
+	public AboutController(EmployeeRepository er, DataSource dataSource) {
 		this.er = er;
+		this.dataSource = dataSource;
 	}
 	
 	@GetMapping
@@ -107,6 +113,27 @@ public class AboutController {
 		return "redirect:/about";
 	}
 	
-	
+	@GetMapping("downloadReport")
+	public void downloadReport(HttpServletResponse response) throws SQLException {
+		try {
+			InputStream is = new ClassPathResource("reports/report_employees.jasper").getInputStream();
+			JasperReport report = (JasperReport) JRLoader.loadObject(is);
+			
+			Connection connection = dataSource.getConnection();
+			Map<String, Object> parameters = new HashMap<>();
+			
+			JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, connection);
+			response.setContentType("application/pdf");
+			OutputStream os = response.getOutputStream();
+		
+			JasperExportManager.exportReportToPdfStream(jasperPrint, os);
+			
+		} catch (IOException |JRException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+	}
 	
 }
