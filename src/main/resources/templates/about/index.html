@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/head" :: head></div>
+<body>
+    <div th:replace="fragments/header" :: header></div>
+    <div th:replace="fragments/nav" :: nav></div>
+    
+    <main>
+        <p th:text="${message}"></p>
+        
+        <a th:href="@{/about/registerEmployee}">Agregar nuevo empleado</a> | 
+        <a th:href="@{/about/downloadReport}">Descargar reporte</a>
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Nombre</td>
+                    <td>Apellido</td>
+                    <td>Salario</td>
+                    <td>Puesto</td>
+                    <td>Fecha de registro</td>
+                    <td colspan="2">Acciones</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="employee:${lstEmployees}">
+                    <td th:text="${employee.id}"></td>
+                    <td th:text="${employee.name}"></td>
+                    <td th:text="${employee.lastName}"></td>
+                    <td th:text="${employee.salary}"></td>
+                    <td th:text="${employee.position}"></td>
+                    <td th:text="${employee.registerDate}"></td>
+                    <td><a th:href="@{/about/frmUpdateEmployee/{id}(id=${employee.id})}">Actualizar</a></td>
+                    <td><a th:href="@{/about/deleteEmployee/{id}(id=${employee.id})}">Eliminar</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </main>
+</body>
+</html>

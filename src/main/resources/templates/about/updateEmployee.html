@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/head" :: head></div>
+<body>
+    <div th:replace="fragments/header" :: header></div>
+    <div th:replace="fragments/nav" :: nav></div>
+    
+    <main>
+        <h3 th:text="${title}"></h3>
+        <form th:action="@{/about/updateEmployee/{id}(id=${objEmp.id})}" method="POST" th:object="${objEmp}">
+            <div>
+                <input type="text" placeholder="Nombre" th:field="${objEmp.name}">
+            </div>
+                <input type="text" placeholder="Apellido" th:field="${objEmp.lastName}">
+            <div>
+                <input type="text" placeholder="Salario" th:field="${objEmp.Salary}">
+            </div>
+                <input type="text" placeholder="Puesto" th:field="${objEmp.position}">
+            <div>
+                <input type="submit" value="Actualizar">
+            </div>    
+        </form>
+
+    </main>
+</body>
+</html>
